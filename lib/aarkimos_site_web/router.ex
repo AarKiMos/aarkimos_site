@@ -17,6 +17,7 @@ defmodule AarkimosSiteWeb.Router do
   scope "/", AarkimosSiteWeb do
     pipe_through :browser
 
+    get "/blog", BlogController, :index
     get "/", PageController, :index
   end
 
