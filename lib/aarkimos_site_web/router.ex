@@ -17,9 +17,8 @@ defmodule AarkimosSiteWeb.Router do
   scope "/", AarkimosSiteWeb do
     pipe_through :browser
 
-    get "/blog", BlogController, :index
-    get "/blog/:id", BlogController, :show
     get "/", PageController, :index
+    resources "/blog", BlogController, only: [:new, :create, :show, :index]
   end
 
   # Other scopes may use custom stacks.
