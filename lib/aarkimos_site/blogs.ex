@@ -23,4 +23,8 @@ defmodule AarkimosSite.Blogs do
     |> Post.changeset(attrs)
     |> Repo.insert()
   end
+
+  def delete_post(%Post{} = post) do
+    Repo.delete(post)
+  end
 end

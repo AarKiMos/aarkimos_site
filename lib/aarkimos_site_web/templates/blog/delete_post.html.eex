@@ -1,0 +1,6 @@
+<h1>Are you sure to delete " <%= @post.title %> "</h1>
+<br>
+<div>
+    <%= button "Yes", to: Routes.blog_path(@conn, :delete, @post.id), method: :delete%>
+    <%= button "Cancel", to: Routes.blog_path(@conn, :index), method: :get %>
+</div>

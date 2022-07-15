@@ -31,4 +31,25 @@ defmodule AarkimosSiteWeb.BlogController do
         render(conn, "new.html", changeset: changeset)
     end
   end
+
+  def delete_post(conn, %{"id" => id}) do
+    post = Blogs.get_post(id)
+    render(conn, "delete_post.html", post: post)
+  end
+
+  def delete(conn, %{"id" => id}) do
+    post = Blogs.get_post(id)
+
+    case Blogs.delete_post(post) do
+      {:ok, post} ->
+        conn
+        |> put_flash(:info, " Post '#{post.title}' deleted!")
+        |> redirect(to: Routes.blog_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = _changeset} ->
+        conn
+        |> put_flash(:info, "Some error occured deleting")
+        |> redirect(to: Routes.blog_path(conn, :index))
+    end
+  end
 end
