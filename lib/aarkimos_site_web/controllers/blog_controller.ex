@@ -52,4 +52,24 @@ defmodule AarkimosSiteWeb.BlogController do
         |> redirect(to: Routes.blog_path(conn, :index))
     end
   end
+
+  def update_post(conn, %{"id" => id}) do
+    post = Blogs.get_post(id)
+    changeset = Blogs.change_post(post)
+    render(conn, "update_post.html", changeset: changeset)
+  end
+
+  def update(conn, %{"post" => post_params, "id" => id}) do
+    IO.inspect(id, label: "IDID")
+
+    case Blogs.update_post(id, post_params) do
+      {:ok, post} ->
+        conn
+        |> put_flash(:info, " Post '#{post.title}' update!")
+        |> redirect(to: Routes.blog_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "update_post.html", changeset: changeset)
+    end
+  end
 end

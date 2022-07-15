@@ -7,5 +7,6 @@
         <%= @post.content %>
     </div>
     <br>
+    <%= button "Update Post", to: Routes.blog_path(@conn, :update_post, @post.id), method: :get %>
     <%= button "Delete Post", to: Routes.blog_path(@conn, :delete_post, @post.id), method: :get %>
 </div>
